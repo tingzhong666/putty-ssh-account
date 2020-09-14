@@ -1,0 +1,39 @@
+/*初始化*/
+* {	/*内外边距初始化*/
+	margin: 0;
+	padding: 0;
+  /* 所有盒子采用新盒子模型布局 */
+  box-sizing: border-box;
+}
+
+ul {	/*取消列表样式*/
+	list-style: none;
+}
+
+a {	/*取消链接下划线*/
+	text-decoration-line: none;
+}
+
+/*图片对齐方式初始化*/
+img {
+	vertical-align: middle;
+    /*或父元素添加
+    font-size:0px;*/
+    /*或者这样
+    display: block;*/
+}
+
+/* 表单 */
+input {
+	outline: none;
+}
+
+textarea {
+	resize: none;
+  outline: none;
+}
+
+button {
+  border: none;
+  outline: none;
+}
