@@ -5,7 +5,7 @@ const express = require('express'),
   fs = require('fs'),
   open = require('open'),
   path = require('path'),
-  mode = 'dev'
+  mode = 'production'
 
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }))
   // 跨域 自定义请求体允许
