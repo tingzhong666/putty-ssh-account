@@ -7,16 +7,28 @@ Putty account management.
 ## Project setup
 ```
 npm i
+cd client
+npm i
 ```
 
 ### Dev
+
+- server
+
 ```
-node app.js
+npm run dev
+```
+
+- client
+
+```
+cd client
+npm run dev
 ```
 
 ### Production
+
 ```
-cd release
-npm i
-node app.js
+npm run build
+npm run start
 ```

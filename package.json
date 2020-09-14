@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon app.js",
+    "start": "node ./release/app.js"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +15,10 @@
     "express": "^4.17.1",
     "open": "^7.2.1",
     "portfinder": "^1.0.28"
+  },
+  "devDependencies": {
+    "cross-spawn": "^7.0.3",
+    "fs-extra": "^9.0.1",
+    "nodemon": "^2.0.4"
   }
 }

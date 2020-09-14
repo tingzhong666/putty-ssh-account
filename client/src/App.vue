@@ -35,7 +35,8 @@ export default {
         password: '',
         username: '',
         port: 22,
-        remark: ''
+        remark: '',
+        id: null
       },
       msg: '',
       index: -1
@@ -57,7 +58,8 @@ export default {
         password: '',
         username: '',
         port: 22,
-        remark: ''
+        remark: '',
+        id: null
       }
     },
     // 双向绑定 Editor 组件
@@ -66,27 +68,11 @@ export default {
     },
     // 初始化
     async init () {
-      const events = [
-        await localStorage.getItem('list'),
-        await localStorage.getItem('exePath')
-      ]
+      const res = await axios.get('/list')
+      this.exePath = res.data.data.path
+      this.list = res.data.data.list
 
-      const [list, exePath] = await Promise.all(events)
-
-      if (!list) {
-        await this.storage([])
-        this.list = []
-        this.clearInfor()
-        this.exePath = ''
-        return
-      }
-
-      this.list = JSON.parse(list)
-      this.exePath = exePath || ''
-      if (this.list.length) {
-        this.setInfor(this.list[0])
-        this.index = 0
-      } else this.clearInfor()
+      if (this.list.length) this.setInfor(this.list[0])
     },
     // 列表索引
     change (i) {
@@ -94,34 +80,18 @@ export default {
       if (i === -1) this.clearInfor()
       else this.infor = this.list[i]
     },
-    // 点击按钮 保存提交
+    // 连接 点击按钮 保存提交
     async submit () {
-      localStorage.setItem('exePath', this.exePath)
-      // -1为新增
-      if (this.index === -1) await this.addSave()
-      else await this.save()
-      this.connect()
-    },
-    // 新增到 localStorage
-    async addSave () {
-      this.list.push(this.infor)
-      await this.storage(this.list)
-    },
-    // 保存修改
-    async save () {
-      this.list[this.index] = this.infor
-      await this.storage(this.list)
-    },
-    // 连接
-    async connect () {
       const res = await axios.post('/connect', { ...this.infor, path: this.exePath })
       this.msg = res.data.msg
+
+      if (res.data.code === 1) {
+        this.exePath = res.data.data.path
+        this.list = res.data.data.list
+      }
+
       // 新增 则
       if (res.data.code === 1 && this.index === -1) this.$refs.list.change(this.list.length - 1)
-    },
-    // 保存到 storage
-    async storage (data) {
-      await localStorage.setItem('list', JSON.stringify(data))
     }
   },
   async created () {

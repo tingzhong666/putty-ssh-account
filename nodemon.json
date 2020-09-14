@@ -1,0 +1,3 @@
+{
+  "ignore": ["account", "release", "client", "node_modules"]
+}
