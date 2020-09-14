@@ -5,7 +5,7 @@ const express = require('express'),
   fs = require('fs'),
   open = require('open'),
   path = require('path'),
-  mode = 'production'
+  mode = 'dev'
 
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }))
   // 跨域 自定义请求体允许
@@ -80,16 +80,16 @@ app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }))
   })
   // 静态资源
   if (mode !== 'dev') {
-    app.use('/css', express.static('./dist/css'))
-      .use('/js', express.static('./dist/js'))
-      .use('/favicon.ico', express.static('./dist/favicon.ico'))
+    app.use('/css', express.static(path.join(__dirname, './dist/css')))
+      .use('/js', express.static(path.join(__dirname, './dist/js')))
+      .use('/favicon.ico', express.static(path.join(__dirname, './dist/favicon.ico')))
       .use('/', async (req, res) => {
         res.sendFile(path.join(__dirname, './dist/index.html'))
       })
   } else {
-    app.use('/css', express.static('./client/dist/css'))
-    .use('/js', express.static('./client/dist/js'))
-    .use('/favicon.ico', express.static('./client/dist/favicon.ico'))
+    app.use('/css', express.static(path.join(__dirname, './client/dist/css')))
+    .use('/js', express.static(path.join(__dirname, './client/dist/js')))
+    .use('/favicon.ico', express.static(path.join(__dirname, './client/dist/favicon.ico')))
     .use('/', async (req, res) => {
       res.sendFile(path.join(__dirname, './client/dist/index.html'))
     })
